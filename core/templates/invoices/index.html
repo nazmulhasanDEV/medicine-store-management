@@ -1,0 +1,125 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="row">
+                    <div class="col-sm-5 col-4">
+                        <h4 class="page-title">Invoice</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row custom-invoice">
+                                    <div class="col-6 col-sm-6 m-b-20">
+                                        <img src="{% static 'assets/img/logo-dark.png' %}" class="inv-logo" alt="">
+                                        <ul class="list-unstyled">
+                                            <li>PreClinic</li>
+                                            <li>3864 Quiet Valley Lane,</li>
+                                            <li>Sherman Oaks, CA, 91403</li>
+                                            <li>GST No:</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-6 col-sm-6 m-b-20">
+                                        <div class="invoice-details">
+                                            <h3 class="text-uppercase">Invoice #INV-{{object.pk}}</h3>
+                                            <ul class="list-unstyled">
+                                                <li>Date: <span>October 12, 2023</span></li>
+<!--                                                <li>Due date: <span>November 25, 2017</span></li>-->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 col-lg-6 m-b-20">
+
+											<h5>Invoice to:</h5>
+											<ul class="list-unstyled">
+												<li>
+													<h5><strong>{{object.customer.first_name}} {{object.customer.last_name}}</strong></h5>
+												</li>
+												<li><span>Global Technologies</span></li>
+												<li>United States</li>
+												<li>888-777-6655</li>
+												<li><a href="#">{{object.customer.email}}</a></li>
+											</ul>
+
+                                    </div>
+                                    <div class="col-sm-6 col-lg-6 m-b-20">
+										<div class="invoices-view">
+											<span class="text-muted">Payment Details:</span>
+											<ul class="list-unstyled invoice-payment-details">
+												<li>
+													<h5>Total Due: <span class="text-right">{{object.total_amount}}/-</span></h5>
+												</li>
+<!--												<li>Bank name: <span>Profit Bank Europe</span></li>-->
+												<li>Country: <span>Bangladesh</span></li>
+												<li>City: <span>Dhaka</span></li>
+												<li>Address: <span>3 Goodman Street</span></li>
+											</ul>
+										</div>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>ITEM</th>
+                                                <th>DESCRIPTION</th>
+                                                <th>UNIT COST</th>
+                                                <th>QUANTITY</th>
+                                                <th>TOTAL</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for obj in object.items.all %}
+                                            <tr>
+                                                <td>{{forloop.counter}}</td>
+                                                <td>{{obj.name}}</td>
+                                                <td>{{obj.description}}</td>
+                                                <td>{{obj.price}}/-</td>
+                                                <td>1</td>
+                                                <td>{{obj.price}}/-</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div>
+                                    <div class="row invoice-payment">
+                                        <div class="col-sm-7">
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="m-b-20">
+                                                <h6>Total due</h6>
+                                                <div class="table-responsive no-border">
+                                                    <table class="table mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Subtotal:</th>
+                                                                <td class="text-right">{{object.total_amount}}/-</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Tax: <span class="text-regular">(0%)</span></th>
+                                                                <td class="text-right">0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Total:</th>
+                                                                <td class="text-right text-primary">
+                                                                    <h5>{{object.total_amount}}/-</h5>
+																</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block main_content %}
+<div class="row">
+                    <div class="col-sm-4 col-3">
+                        <h4 class="page-title">Expired Medicines</h4>
+                    </div>
+                    <div class="col-sm-8 col-9 text-right m-b-20">
+                        <a href="/medicine/add-new-medicine" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add Medicine</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        {% if messages %}
+                            {% for message in messages %}
+
+                            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible" {% endif %}>
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <strong>{{message.tags}}: </strong>{{ message }}!
+                            </div>
+
+                            {% endfor %}
+                        {% endif %}
+
+                        <div class="card-box">
+                            <div class="card-block">
+								<div class="table-responsive">
+									<table class="datatable table table-stripped ">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Manufacturer</th>
+                                            <th>dosage</th>
+                                            <th class="text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if medicine_list %}
+                                        {% for medicine in medicine_list %}
+                                            <tr>
+                                                <td>
+                                                    <img width="28" height="28" src="{{medicine.image.url}}" class="rounded-circle m-r-5" alt="">
+                                                </td>
+                                                <td>{{medicine.name}}</td>
+                                                <td>{{medicine.description}}</td>
+                                                <td>{{medicine.price}}</td>
+                                                <td>{{medicine.quantity_in_stock}}</td>
+                                                <td>{{medicine.manufacturer}}</td>
+                                                <td>{{medicine.dosage}}</td>
+                                                <td class="text-right">
+                                                    <div class="dropdown dropdown-action">
+                                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="{% url 'remove_medicine_item' pk=medicine.pk %}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                            {% if medicine.is_expired != False %}
+                                                            <a class="dropdown-item" href="{% url 'mark_as_expired' pk=medicine.pk %}"><i class="fa fa-flag-o"></i> Mark as active</a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}

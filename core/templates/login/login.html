@@ -1,0 +1,81 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- login23:11-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+    <!--[if lt IE 9]>
+		<script src="{% static 'assets/js/html5shiv.min.js' %}"></script>
+		<script src="{% static 'assets/js/respond.min.js' %}"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            {% if messages %}
+                            {% for message in messages %}
+
+                            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible" {% endif %}>
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <strong>{{message.tags}}: </strong>{{ message }}!
+                            </div>
+
+                            {% endfor %}
+                        {% endif %}
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="main-wrapper account-wrapper">
+        <div class="account-page">
+
+			<div class="account-center">
+				<div class="account-box">
+                    <form action="{% url 'login_view' %}" method="post" class="form-signin">
+                        {% csrf_token %}
+						<div class="account-logo">
+                            <a href="/login-user"><img src="{% static 'assets/img/logo-dark.png' %}" alt=""></a>
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" autofocus="" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+<!--                        <div class="form-group text-right">-->
+<!--                            <a href="forgot-password.html">Forgot your password?</a>-->
+<!--                        </div>-->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary account-btn">Login</button>
+                        </div>
+                        <div class="text-center register-link">
+                            Don’t have an account? <a href="/register-user">Register Now</a>
+                        </div>
+                    </form>
+                </div>
+			</div>
+        </div>
+    </div>
+    <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.js' %}"></script>
+</body>
+
+
+<!-- login23:12-->
+</html>
